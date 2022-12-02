@@ -13,8 +13,10 @@ Animal data:
 
 # API:
 
-* curl /api/entry/ curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/entry/
+* curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/entry/
 
-* curl /api/delete/ curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/delete/ ( giving only "id" is enough)
+* curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/delete/ ( giving only "id" is enough)
 
-* curl /api/edit/ curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/edit/
+* curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/edit/
+
+* http://_localhost_/animal-store/animal-list/ - json data response
