@@ -19,4 +19,4 @@ Animal data:
 
 * curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://_localhost_/api/edit/
 
-* http://_localhost_/animal-store/animal-list/ - json data response
+* curl http://_localhost_/animal-store/animal-list/ - json data response
