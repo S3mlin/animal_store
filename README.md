@@ -10,3 +10,11 @@ Animal data:
 * imageURL
 * status (placed/approved/delivered)
 * tags
+
+# API:
+
+* curl /api/entry/ curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://<localhost>/api/entry/
+
+* curl /api/delete/ curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://<localhost>/api/delete/ ( giving only "id" is enough)
+
+* curl /api/edit/ curl --header "Content-Type:application/json" --request POST --data '{"id" : "", "animalName": "", "category": "", "imageURl": "", "status": ""}' http://<localhost>/api/edit/
