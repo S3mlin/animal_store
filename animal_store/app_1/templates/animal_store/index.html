@@ -1,0 +1,98 @@
+{% extends 'animal_store/base.html' %}
+
+{% block content %}
+
+<div class="m-6">
+    {% if all_tags %}
+        <div class="inline-flex rounded-md shadow-sm mb-4" role="group">
+        {% for tag in all_tags %}
+            <button type="button" class="py-2 px-4 text-sm font-medium text-gray-900 bg-transparent rounded-l-lg border border-gray-900 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                <a href="{% url 'animal-store:selected-tag' tag.id %}">{{ tag }}</a>
+            </button>
+            <button type="button" class="py-2 px-4 mr-2 text-sm font-medium text-gray-900 bg-transparent rounded-r-md border-t border-b border-r border-gray-900 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                <a href="{% url 'animal-store:delete-tag' tag.id %}">X</a>
+            </button>
+          
+        {% endfor %}
+        <button type="button" class="py-2 px-4 text-sm font-medium text-gray-900 bg-transparent rounded-r rounded-l border border-gray-900 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+            <a href="{% url 'animal-store:index' %}">All</a>
+        </button>
+        </div>
+    {% endif %}
+    {% if animal_list %}
+    <ul>
+            {% for animal in animal_list %}
+            <li>
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex flex-col items-center pb-4 pt-4">
+                    {% if animal.image %}
+                    <img class="w-40 h-40 mb-3 rounded-full shadow-lg" src="{{ animal.image.url }}">
+                    {% else %}
+                    <img class="w-40 h-40 mb-3 rounded-full shadow-lg" alt="no image">
+                    {% endif %}
+                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{animal.animalName}}</h5>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Category: {{animal.category}}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Image URL: {{animal.imageURl}}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Status: {{animal.status}}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                        {% for tag in animal.tags.all %}
+                            <small>{{ tag }}</small>
+                        {% endfor %}
+                    </span>
+                    <div class="flex mt-4 space-x-3 md:mt-6">
+                        <a href="{% url 'animal-store:edit' animal.id %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
+                        <a href="{% url 'animal-store:delete' animal.id %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Delete</a>
+                    </div>
+                </div>
+            </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No animals entered on the site!</p>
+    {% endif %}
+    <a href="{% url 'animal-store:entry' %}" class="inline-flex items-center mt-4 px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">New entry!</a>
+</div>
+<div class="flex justify-center">
+    <nav aria-label="Page navigation example">
+      <ul class="flex list-style-none">
+        {% if animal_list.has_previous %}
+        <li class="page-item">
+            
+            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href="?page={{ animal_list.previous_page_number }}">Previous</a>
+            <li class="page-item">
+                <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                href="?page={{ lower_num }}">{{ lower_num }}</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><a
+                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-500 pointer-events-none focus:shadow-none"
+                href="#">Previous</a>
+            </li>
+            {% endif %}
+        </li>
+        <li class="page-item">
+            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
+            href="#"><span class="visually-hidden">{{ animal_list.number }}</span></a>
+        </li>
+        {% if animal_list.has_next %}
+        <li class="page-item">
+            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href="?page={{ higher_num }}">{{ higher_num }}</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href="?page={{ animal_list.next_page_number }}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-500 pointer-events-none focus:shadow-none"
+            href="#">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Animal Store</title>
+        {% else %}
+        <title>Animal Store</title>
+        {% endif %}
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            ul {
+                display: grid;
+                grid-gap: 1em;
+                grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 text-blue-600 m-6"><a href="{% url 'animal-store:index' %}">Animal Store</a></h2>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
